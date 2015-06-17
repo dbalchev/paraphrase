@@ -5,6 +5,7 @@ from .ngram import C1, C2, V1, V2
 from .skclassifier import SciKitClassifier
 from .word2vec import word2vec_features
 from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier,AdaBoostRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn import svm
 import sklearn.preprocessing as pre
@@ -23,7 +24,7 @@ if __name__ == "__main__":
 
     for features_gen in features:
         svm_pipeline = \
-            make_pipeline(pre.StandardScaler(), svm.SVC(class_weight="auto"))
+            make_pipeline(pre.StandardScaler(),  AdaBoostRegressor())#svm.SVC(class_weight="auto"))
         classifier = SciKitClassifier(train_database, features_gen, svm_pipeline)
         features_gen = concat(features_gen, word2vec_features)
         print("features", features_gen.name)
