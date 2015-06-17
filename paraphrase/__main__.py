@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     for features_gen in features:
         svm_pipeline = \
-            make_pipeline(pre.StandardScaler(),  AdaBoostRegressor())#svm.SVC(class_weight="auto"))
+            make_pipeline(pre.StandardScaler(),  AdaBoostRegressor(n_estimators = 256))
         classifier = SciKitClassifier(train_database, features_gen, svm_pipeline)
         features_gen = concat(features_gen, word2vec_features)
         print("features", features_gen.name)

@@ -23,8 +23,8 @@ class TrainDataRow(model.Model):
     sent_1 = model.String
     sent_2 = model.String
     label = TrainLabel
-    sent_1_tag = model.Ignore
-    sent_2_tag = model.Ignore
+    sent_1_tag = model.String
+    sent_2_tag = model.String
 
     def is_paraphrase(self):
         return self.label[0] >= 3
@@ -38,8 +38,8 @@ class TestDataRow(model.Model):
     sent_1 = model.String
     sent_2 = model.String
     label = model.Integer
-    sent_1_tag = model.Ignore
-    sent_2_tag = model.Ignore
+    sent_1_tag = model.String
+    sent_2_tag = model.String
 
     def is_paraphrase(self):
         return self.label in (4, 5)

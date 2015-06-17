@@ -6,22 +6,14 @@ from math import sqrt
 
 WORD2VEC_FILEMAP = "filemap.w2v"
 
-_word2vec = None
-def word2vec(word):
-    global _word2vec
-    if not _word2vec:
-        filemap_io = open(WORD2VEC_FILEMAP, "rb")
-        _word2vec = MapReader(filemap_io)
-    if word not in _word2vec:
-        rnd = np.random.ranf(next(iter(_word2vec.items()))[1].shape)
-        _word2vec[word] = rnd
-    return _word2vec[word]
+_word2vec = MapReader(open(WORD2VEC_FILEMAP, "rb"))
 
 def _norm(v):
     return sqrt(np.dot(v, v))
 
 def _get_words_vec(sentence):
-    return sum(word2vec(word) for word in get_words(sentence))
+    return sum(_word2vec[word] for word in get_words(sentence)\
+        if word in _word2vec)
 
 @named("word2vec_dot")
 def word2vec_features(data_row):
